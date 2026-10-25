@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOOD COFFEE PLACE — Сніданки, кава, десерти</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mood: {
+                            bg: '#FBF9F5',
+                            card: '#FFFFFF',
+                            accent: '#D4A373',
+                            accentHover: '#BC8A5F',
+                            primary: '#3D2C24',
+                            secondary: '#6C584C',
+                            lightBg: '#F3EDE2',
+                            softBeige: '#FAEDCD',
+                            greenTouch: '#CCD5AE'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FBF9F5;
+            color: #3D2C24;
+        }
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1ECE4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4A373;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #BC8A5F;
+        }
+        .paw-print {
+            opacity: 0.12;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-mood-accent selection:text-white">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 bg-[#FBF9F5]/90 backdrop-blur-md border-b border-mood-accent/20 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <span class="w-10 h-10 rounded-full bg-mood-accent text-white flex items-center justify-center font-serif-title font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+                        M
+                    </span>
+                    <div class="flex flex-col">
+                        <span class="font-serif-title text-xl font-bold tracking-wider text-mood-primary leading-none">MOOD</span>
+                        <span class="text-[10px] tracking-[0.25em] text-mood-secondary font-medium uppercase mt-1">Coffee Place</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-mood-secondary">
+                    <a href="#about" class="hover:text-mood-accent transition-colors">Про нас</a>
+                    <a href="#menu" class="hover:text-mood-accent transition-colors">Меню</a>
+                    <a href="#gallery" class="hover:text-mood-accent transition-colors">Галерея</a>
+                    <a href="#contacts" class="hover:text-mood-accent transition-colors">Контакти</a>
+                </nav>
+
+                <!-- CTA & Socials -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="https://instagram.com/mood.coffeplace" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-mood-lightBg flex items-center justify-center text-mood-primary hover:bg-mood-accent hover:text-white transition-all duration-300" title="Наш Instagram">
+                        <i class="fab fa-instagram text-lg"></i>
+                    </a>
+                    <button onclick="openModal()" class="px-5 py-2.5 rounded-full bg-mood-primary text-white text-sm font-medium hover:bg-mood-secondary transition-all duration-300 shadow-md hover:shadow-lg">
+                        <i class="fa-regular fa-calendar-check mr-2"></i>Забронювати
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-mood-primary hover:bg-mood-lightBg transition-colors" aria-label="Відкрити меню">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-mood-accent/20 px-4 pt-2 pb-6 space-y-3 shadow-lg">
+            <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-mood-primary hover:bg-mood-lightBg">Про нас</a>
+            <a href="#menu" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-mood-primary hover:bg-mood-lightBg">Меню</a>
+            <a href="#gallery" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-mood-primary hover:bg-mood-lightBg">Галерея</a>
+            <a href="#contacts" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-mood-primary hover:bg-mood-lightBg">Контакти</a>
+            <div class="pt-4 flex flex-col gap-2">
+                <button onclick="openModal()" class="w-full py-3 rounded-full bg-mood-primary text-white font-medium text-center">
+                    Забронювати столик
+                </button>
+                <a href="https://instagram.com/mood.coffeplace" target="_blank" class="w-full py-2.5 rounded-full bg-mood-lightBg text-mood-primary font-medium text-center flex items-center justify-center gap-2">
+                    <i class="fab fa-instagram"></i> Instagram: @mood.coffeplace
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[88vh] flex items-center justify-center overflow-hidden py-16 lg:py-24">
+        <!-- Background Paw Prints SVG Watermark Pattern -->
+        <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none grid grid-cols-4 sm:grid-cols-6 gap-12 p-8">
+            <i class="fa-solid fa-paw text-6xl text-mood-primary"></i>
+            <i class="fa-solid fa-paw text-6xl text-mood-primary transform rotate-12"></i>
+            <i class="fa-solid fa-paw text-6xl text-mood-primary transform -rotate-12"></i>
+            <i class="fa-solid fa-paw text-6xl text-mood-primary"></i>
+            <i class="fa-solid fa-paw text-6xl text-mood-primary transform rotate-45"></i>
+            <i class="fa-solid fa-paw text-6xl text-mood-primary"></i>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Hero Text -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mood-accent/15 border border-mood-accent/30 text-mood-secondary text-xs sm:text-sm font-semibold tracking-wide uppercase">
+                        <i class="fa-solid fa-mug-hot text-mood-accent"></i> Сніданки • Кава • Десерти
+                    </div>
+                    
+                    <h1 class="font-serif-title text-4xl sm:text-5xl lg:text-6xl font-bold text-mood-primary leading-tight">
+                        MOOD COFFEE PLACE
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-mood-secondary font-normal max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Створюємо правильний настій щодня. Затишна атмосфера, запашна свіжообсмажена кава, авторські сніданки та ніжні десерти, створені для вашої насолоди.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-full bg-mood-accent hover:bg-mood-accentHover text-white font-semibold text-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-utensils mr-2"></i>Переглянути меню
+                        </a>
+                        <button onclick="openModal()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white border-2 border-mood-primary/10 text-mood-primary font-semibold hover:bg-mood-lightBg transition-all duration-300">
+                            <i class="fa-solid fa-chair mr-2"></i>Забронювати столик
+                        </button>
+                    </div>
+
+                    <!-- Quick info chips -->
+                    <div class="pt-8 border-t border-mood-accent/20 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <span class="block text-xl sm:text-2xl font-bold font-serif-title text-mood-primary">08:00+</span>
+                            <span class="text-xs text-mood-secondary">Свіжі сніданки</span>
+                        </div>
+                        <div>
+                            <span class="block text-xl sm:text-2xl font-bold font-serif-title text-mood-primary">100%</span>
+                            <span class="text-xs text-mood-secondary">Свіжі продукти</span>
+                        </div>
+                        <div>
+                            <span class="block text-xl sm:text-2xl font-bold font-serif-title text-mood-primary">Mood</span>
+                            <span class="text-xs text-mood-secondary">Пета-френдлі кафе</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image Grid -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Main Frame Image -->
+                        <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] relative z-10 transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=80" 
+                                 alt="Авокадо бріош сніданок MOOD" 
+                                 class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-6 left-6 right-6 text-white">
+                                <span class="bg-mood-accent text-xs uppercase tracking-wider font-bold px-3 py-1 rounded-full mb-2 inline-block">Хіт продажів</span>
+                                <h3 class="font-serif-title text-xl font-bold">Бріош з лососем та гуакамоле</h3>
+                                <p class="text-xs text-gray-200 mt-1">Ніжне яйце пашот, авокадо, слабосолений лосось</p>
+                            </div>
+                        </div>
+
+                        <!-- Secondary floating card -->
+                        <div class="absolute -bottom-6 -left-6 z-20 hidden sm:block bg-white p-4 rounded-2xl shadow-xl border border-mood-accent/20 max-w-[200px]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-mood-softBeige flex items-center justify-center text-mood-accent text-xl">
+                                    <i class="fa-solid fa-stroopwafel"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-mood-primary">Крафтові десерти</p>
+                                    <p class="text-[10px] text-mood-secondary">Щодня свіжа випічка</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-16 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-8 rounded-2xl bg-mood-bg border border-mood-accent/10 hover:shadow-lg transition-all duration-300">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-mood-accent/20 flex items-center justify-center text-mood-primary text-2xl">
+                        <i class="fa-solid fa-egg"></i>
+                    </div>
+                    <h3 class="font-serif-title text-xl font-bold text-mood-primary mb-2">Вседенні Сніданки</h3>
+                    <p class="text-sm text-mood-secondary">Готуємо найсмачніші тости на бріоші, шакшуку та пухкі панкейки весь день для вашого ідеального початку доби.</p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-mood-bg border border-mood-accent/10 hover:shadow-lg transition-all duration-300">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-mood-accent/20 flex items-center justify-center text-mood-primary text-2xl">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <h3 class="font-serif-title text-xl font-bold text-mood-primary mb-2">Арабіка & Коктейлі</h3>
+                    <p class="text-sm text-mood-secondary">Від класичного еспресо до авторських кавових лимонадів, айс матчі та коктейлів Espresso Martini.</p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-mood-bg border border-mood-accent/10 hover:shadow-lg transition-all duration-300">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-mood-accent/20 flex items-center justify-center text-mood-primary text-2xl">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h3 class="font-serif-title text-xl font-bold text-mood-primary mb-2">Затишок та Настрої</h3>
+                    <p class="text-sm text-mood-secondary">Прийти на зустріч з друзями або попрацювати за ноутбуком з улюбленим десертом — тут вам завжди раді!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu" class="py-20 bg-mood-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Menu Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-mood-accent font-semibold tracking-widest text-xs uppercase">MOOD MENU</span>
+                <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-mood-primary mt-2">Наше Меню</h2>
+                <div class="w-16 h-1 bg-mood-accent mx-auto mt-4 rounded-full"></div>
+                <p class="text-mood-secondary mt-4 text-sm sm:text-base">
+                    Страви, приготовані з любов'ю та найсвіжіших інгредієнтів. Оберіть категорію, щоб переглянути деталі:
+                </p>
+            </div>
+
+            <!-- Category Navigation Tabs -->
+            <div class="flex items-center justify-start md:justify-center overflow-x-auto gap-2 pb-4 mb-10 no-scrollbar" id="menu-tabs">
+                <button onclick="switchCategory('tasts')" class="menu-tab active flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-mood-primary text-white shadow-md">
+                    <i class="fa-solid fa-bread-slice mr-2"></i>Тости
+                </button>
+                <button onclick="switchCategory('pancakes')" class="menu-tab flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-mood-secondary hover:bg-mood-lightBg">
+                    <i class="fa-solid fa-stroopwafel mr-2"></i>Панкейки
+                </button>
+                <button onclick="switchCategory('breakfasts')" class="menu-tab flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-mood-secondary hover:bg-mood-lightBg">
+                    <i class="fa-solid fa-utensils mr-2"></i>Сніданки
+                </button>
+                <button onclick="switchCategory('syrnyky')" class="menu-tab flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-mood-secondary hover:bg-mood-lightBg">
+                    <i class="fa-solid fa-cheese mr-2"></i>Сирники
+                </button>
+                <button onclick="switchCategory('pastas')" class="menu-tab flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-mood-secondary hover:bg-mood-lightBg">
+                    <i class="fa-solid fa-bowl-food mr-2"></i>Пасти
+                </button>
+                <button onclick="switchCategory('salads')" class="menu-tab flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-mood-secondary hover:bg-mood-lightBg">
+                    <i class="fa-solid fa-leaf mr-2"></i>Салати
+                </button>
+                <button onclick="switchCategory('drinks')" class="menu-tab flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-mood-secondary hover:bg-mood-lightBg">
+                    <i class="fa-solid fa-glass-water mr-2"></i>Літнє Меню & Напої
+                </button>
+            </div>
+
+            <!-- Menu Content Display Grid -->
+            <div id="menu-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Javascript will dynamically inject items here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY & DESSERTS HIGHLIGHT -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-mood-accent font-semibold tracking-widest text-xs uppercase">Особлива солодкість</span>
+                    <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-mood-primary mt-2">Десерти та Авторські Смаколики</h2>
+                </div>
+                <a href="https://instagram.com/mood.coffeplace" target="_blank" class="mt-4 md:mt-0 inline-flex items-center text-sm font-semibold text-mood-accent hover:text-mood-accentHover">
+                    Більше фото в Instagram <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+
+            <!-- Gallery Grid with exact menu items photos -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1: Caesar -->
+                <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 bg-mood-bg">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=700&q=80" 
+                             alt="Салат Цезар з куркою та беконом" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-mood-accent">Салати</span>
+                        <h3 class="font-serif-title font-bold text-lg text-mood-primary mt-1">Салат Цезар з куркою та беконом</h3>
+                        <p class="text-xs text-mood-secondary mt-1 line-clamp-2">Курка су-від, бекон, яйце, мікс салату, айсберг, чері, сухарики, пармезан.</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="font-bold text-mood-primary">210 ₴</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Brownie -->
+                <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 bg-mood-bg">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80" 
+                             alt="Брауні десерт" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-mood-accent">Десерти</span>
+                        <h3 class="font-serif-title font-bold text-lg text-mood-primary mt-1">Фірмовий Брауні</h3>
+                        <p class="text-xs text-mood-secondary mt-1">Для справжніх любителів супер-шоколадного шоколаду 🍫✨</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-xs text-mood-accent font-semibold">Свіжа вітрина</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Pavlova / Meringue -->
+                <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 bg-mood-bg">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=700&q=80" 
+                             alt="Меренговий рулет з полуницею" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-mood-accent">Десерти</span>
+                        <h3 class="font-serif-title font-bold text-lg text-mood-primary mt-1">Меренговий рулет з полуницею</h3>
+                        <p class="text-xs text-mood-secondary mt-1">Саме так, він тут для того, аби розбити ваші серця 💔🍓</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-xs text-mood-accent font-semibold">Ніжна начинка</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Red Velvet in Cup -->
+                <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 bg-mood-bg">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=700&q=80" 
+                             alt="Червоний оксамит в стаканчику" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-mood-accent">Десерти в стаканчику</span>
+                        <h3 class="font-serif-title font-bold text-lg text-mood-primary mt-1">Червоний Оксамит</h3>
+                        <p class="text-xs text-mood-secondary mt-1">Порційний десерт з оксамитовим бісквітом та ніжним крем-сиром.</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-xs text-mood-accent font-semibold">To-Go / У закладі</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Espresso Martini Feature Banner -->
+            <div class="mt-12 rounded-3xl bg-mood-primary text-white p-8 sm:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="z-10 max-w-xl">
+                    <span class="px-3 py-1 rounded-full bg-mood-accent/30 text-mood-softBeige text-xs uppercase font-bold">Коктейльна карта</span>
+                    <h3 class="font-serif-title text-2xl sm:text-3xl font-bold mt-3">Espresso Martini [Еспресо Мартіні]</h3>
+                    <p class="text-gray-300 text-sm mt-2 leading-relaxed">
+                        Витончений коктейль на основі міцного еспресо та якісного міксу. Ідеальне завершення теплого вечора у MOOD COFFEE PLACE.
+                    </p>
+                </div>
+                <div class="z-10 flex-shrink-0">
+                    <button onclick="openModal()" class="px-8 py-4 rounded-full bg-mood-accent hover:bg-mood-accentHover text-white font-semibold transition-all duration-300 shadow-lg">
+                        Зарезервувати вечір
+                    </button>
+                </div>
+                <!-- Subtle Decorative Gradient -->
+                <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-mood-accent/20 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTS & FOOTER -->
+    <section id="contacts" class="py-20 bg-mood-bg border-t border-mood-accent/15">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Contact info -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-mood-accent font-semibold tracking-widest text-xs uppercase">Чекаємо на вас</span>
+                        <h2 class="font-serif-title text-3xl font-bold text-mood-primary mt-2">Завітайте до MOOD</h2>
+                        <p class="text-mood-secondary text-sm mt-3">Завжди раді вашим усмішкам, хорошим розмовам та чотирилапим друзям!</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-mood-accent/10">
+                            <div class="w-10 h-10 rounded-xl bg-mood-lightBg flex items-center justify-center text-mood-accent text-lg flex-shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-mood-primary">Наша адреса</h4>
+                                <p class="text-xs text-mood-secondary mt-0.5">м. Сокаль, Україна</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-mood-accent/10">
+                            <div class="w-10 h-10 rounded-xl bg-mood-lightBg flex items-center justify-center text-mood-accent text-lg flex-shrink-0">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-mood-primary">Графік роботи</h4>
+                                <p class="text-xs text-mood-secondary mt-0.5">Щодня: 08:30 — 21:00</p>
+                                <p class="text-[11px] text-mood-accent mt-0.5">Сніданки подаємо увесь день</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-mood-accent/10">
+                            <div class="w-10 h-10 rounded-xl bg-mood-lightBg flex items-center justify-center text-mood-accent text-lg flex-shrink-0">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-mood-primary">Instagram</h4>
+                                <a href="https://instagram.com/mood.coffeplace" target="_blank" class="text-xs text-mood-accent underline mt-0.5 inline-block">@mood.coffeplace</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reservation Form Box -->
+                <div class="lg:col-span-7">
+                    <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-xl border border-mood-accent/15">
+                        <h3 class="font-serif-title text-2xl font-bold text-mood-primary mb-2">Зарезервувати столик</h3>
+                        <p class="text-xs text-mood-secondary mb-6">Заповніть форму і ми зв'яжемось з вами для підтвердження бронювання.</p>
+                        
+                        <form id="booking-form" onsubmit="handleBooking(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-mood-primary mb-1">Ваше ім'я</label>
+                                    <input type="text" required placeholder="Олена" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-mood-accent focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-mood-primary mb-1">Номер телефону</label>
+                                    <input type="tel" required placeholder="+380 (97) 000-00-00" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-mood-accent focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-mood-primary mb-1">Дата</label>
+                                    <input type="date" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-mood-accent focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-mood-primary mb-1">Час</label>
+                                    <input type="time" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-mood-accent focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-mood-primary mb-1">Кількість осіб</label>
+                                    <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-mood-accent focus:outline-none text-sm">
+                                        <option>1 особа</option>
+                                        <option selected>2 особи</option>
+                                        <option>3-4 особи</option>
+                                        <option>5+ осіб</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-mood-primary mb-1">Побажання (необов'язково)</label>
+                                <textarea rows="3" placeholder="Наприклад: столик біля вікна чи свято..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-mood-accent focus:outline-none text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-mood-accent hover:bg-mood-accentHover text-white font-bold text-sm tracking-wide transition-all duration-300 shadow-md">
+                                Забронювати зараз
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="bg-mood-primary text-gray-400 py-8 border-t border-white/10 text-xs">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <div class="flex justify-center items-center gap-2">
+                <span class="font-serif-title font-bold text-white text-base">MOOD COFFEE PLACE</span>
+            </div>
+            <p>© 2026 MOOD Coffee Place. Сніданки, кава, десерти. Усі права захищено.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL FOR BOOKING / MESSAGE -->
+    <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative transform transition-all">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="w-16 h-16 bg-mood-lightBg rounded-full flex items-center justify-center text-mood-accent text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            
+            <h3 class="font-serif-title text-2xl font-bold text-mood-primary">Дякуємо за запит!</h3>
+            <p class="text-sm text-mood-secondary mt-2">
+                Ми отримали ваше бронювання. Адміністратор закладу MOOD COFFEE PLACE зв'яжеться з вами протягом кількох хвилин для підтвердження.
+            </p>
+
+            <button onclick="closeModal()" class="mt-6 px-8 py-3 rounded-full bg-mood-accent text-white font-bold text-sm w-full">
+                Чудово!
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DATA & INTERACTION LOGIC -->
+    <script>
+        // Menu Data constructed directly from user's attached menu screenshots
+        const menuData = {
+            tasts: [
+                {
+                    title: "Бріош з тунцем",
+                    price: "270 ₴",
+                    desc: "Бріош, тунець з помідором конкасе і цибулею, яйце пашот, крем сир, мікс салату. Прикрашаємо зеленою олією.",
+                    badge: ""
+                },
+                {
+                    title: "Бріош з лососем та гуакамоле",
+                    price: "340 ₴",
+                    desc: "Бріош, яйце пашот, гуакамоле, слабосолений лосось, мікс салату, чері. Прикрашаємо зеленою олією.",
+                    badge: "Хіт"
+                },
+                {
+                    title: "Бріош з креветками та авокадо",
+                    price: "320 ₴",
+                    desc: "Бріош, креветки, крем сир, авокадо, мікс салату. Прикрашаємо зеленою олією та лимоном.",
+                    badge: ""
+                },
+                {
+                    title: "Бріош з куркою",
+                    price: "260 ₴",
+                    desc: "Бріош, курочка су-від, сир фета, томати, скрембл з одного яйця, кукурудза у сирному соусі, пармезан.",
+                    badge: ""
+                }
+            ],
+            pancakes: [
+                {
+                    title: "З гуакамоле та лососем",
+                    price: "280 ₴",
+                    desc: "Ніжні солоні панкейки з фірмовим лососем та свіжим гуакамоле.",
+                    badge: ""
+                },
+                {
+                    title: "З куркою у вершково-шпинатному соусі",
+                    price: "240 ₴",
+                    desc: "Соковита курка су-від у ніжному вершковому соусі зі шпинатом.",
+                    badge: ""
+                },
+                {
+                    title: "З кавовим кремом",
+                    price: "215 ₴",
+                    desc: "Солодкі панкейки з ароматним кавовим кремом від шефа.",
+                    badge: "Спеціальна пропозиція"
+                },
+                {
+                    title: "З грушею та маскарпоне",
+                    price: "230 ₴",
+                    desc: "Запечена груша, карамелізовані нотки та ніжний сир маскарпоне.",
+                    badge: ""
+                },
+                {
+                    title: "З вишневим соусом та морозивом",
+                    price: "195 ₴",
+                    desc: "Класичний солодкий смак із вишневою кислинкою та кулькою морозива.",
+                    badge: ""
+                }
+            ],
+            breakfasts: [
+                {
+                    title: "З лососем та авокадо",
+                    price: "280 ₴",
+                    desc: "Бріош, 2 яйця (яєшня/пашот/скрембл), авокадо, крем сир, слабосолений лосось, салат з чері та огірком з соусом Вінегрет, зелена олія.",
+                    badge: "Популярний"
+                },
+                {
+                    title: "З курочкою тереякі",
+                    price: "250 ₴",
+                    desc: "Бріош, 2 яйця (яєшня/пашот/скрембл), курочка су-від в соусі тереякі, крем сир, салат з чері та огірком з соусом Вінегрет, зелена олія.",
+                    badge: ""
+                },
+                {
+                    title: "Сніданок «Від хазяйки бару»",
+                    price: "250 ₴",
+                    desc: "Бріош, 2 яйця (яєшня/пашот/скрембл), крем сир, ковбаски, бекон, салат з чері та огірком з соусом Вінегрет, квашені огірочки, зелена олія.",
+                    badge: "Ситно"
+                },
+                {
+                    title: "З креветками та сирною кукурудзою",
+                    price: "275 ₴",
+                    desc: "Бріош, 2 яйця (яєшня/пашот/скрембл), авокадо, крем сир, креветки, кукурудза в сирному соусі, салат з чері та огірком, зелена олія.",
+                    badge: ""
+                },
+                {
+                    title: "З тунцем та фетою",
+                    price: "245 ₴",
+                    desc: "Бріош, 2 яйця (яєшня/пашот/скрембл), тунець, сир фета, салат з чері та огірком з соусом Вінегрет, зелена олія.",
+                    badge: ""
+                },
+                {
+                    title: "Шакшука",
+                    price: "165 ₴",
+                    desc: "Яєшня з томатами та червоним перцем, синя цибуля, свіжообсмажений багет.",
+                    badge: "Класика"
+                }
+            ],
+            syrnyky: [
+                {
+                    title: "З вишневим соусом та маскарпоне",
+                    price: "160 / 180 ₴",
+                    desc: "Порція з 3 або 4 сирників. Ніжна вишня та кремовий маскарпоне.",
+                    badge: "Хіт"
+                },
+                {
+                    title: "З солоною карамеллю і грецьким йогуртом",
+                    price: "160 / 180 ₴",
+                    desc: "Порція з 3 або 4 сирників. Авторська солона карамель та густий грецький йогурт.",
+                    badge: ""
+                },
+                {
+                    title: "Класичні зі сметаною та джемом",
+                    price: "145 / 160 ₴",
+                    desc: "Порція з 3 або 4 сирників. Традиційні пухкі домашні сирники.",
+                    badge: ""
+                }
+            ],
+            pastas: [
+                {
+                    title: "Карбонара",
+                    price: "175 ₴",
+                    desc: "Класична італійська паста з беконом, яєчним жовтком та пармезаном.",
+                    badge: ""
+                },
+                {
+                    title: "Вершкова з куркою та овочами",
+                    price: "220 ₴",
+                    desc: "Ніжне соковите куряче філе, сезонні овочі у вершковому соусі.",
+                    badge: ""
+                },
+                {
+                    title: "Супер сирна паста",
+                    price: "180 ₴",
+                    desc: "Насичений мікс кількох видів сиру для справжніх поціновувачів.",
+                    badge: "Must try"
+                },
+                {
+                    title: "Вершкова з лососем та шпинатом",
+                    price: "260 ₴",
+                    desc: "Шматочки соковитого лосося та свіжий шпинат у вершках.",
+                    badge: ""
+                },
+                {
+                    title: "Вершкова з креветками",
+                    price: "280 ₴",
+                    desc: "Тигрові креветки в ароматному вершковому соусі з пармезаном.",
+                    badge: ""
+                }
+            ],
+            salads: [
+                {
+                    title: "Цезар з куркою та беконом",
+                    price: "210 ₴",
+                    desc: "Курка су-від, бекон, яйце, класичний соус цезар, мікс салату, айсберг, чері, сухарики, пармезан.",
+                    badge: ""
+                },
+                {
+                    title: "Цезар з лососем",
+                    price: "260 ₴",
+                    desc: "Слабосолений лосось, мікс салату, чері, хрусткі сухарики, пармезан та фірмовий соус.",
+                    badge: ""
+                },
+                {
+                    title: "Цезар з креветками",
+                    price: "250 ₴",
+                    desc: "Обсмажені креветки, мікс салату, сухарики, томати чері та соус Цезар.",
+                    badge: ""
+                },
+                {
+                    title: "Креветки у вершково-часниковому соусі",
+                    price: "290 ₴",
+                    desc: "Гаряча закуска з тигрових креветок у пікантному вершково-часниковому соусі.",
+                    badge: "Преміум"
+                },
+                {
+                    title: "Брускети з тунцем та груша / горгонзола",
+                    price: "95 ₴",
+                    desc: "Хрусткі брускети на вибір з ніжним тунцем або витонченим поєднанням груші та горгонзоли.",
+                    badge: ""
+                }
+            ],
+            drinks: [
+                {
+                    title: "Мохіто",
+                    price: "110 ₴",
+                    desc: "Освіжаючий безалкогольний літній коктейль з м'ятою та лаймом.",
+                    badge: ""
+                },
+                {
+                    title: "Лимонади (Цитрусовий / Лічі / Сакура-Маракуйя)",
+                    price: "90 ₴",
+                    desc: "Свіжі авторські лимонади власного приготування на вибір.",
+                    badge: "Літо"
+                },
+                {
+                    title: "Кавовий лимонад груша",
+                    price: "125 ₴",
+                    desc: "Неординарне поєднання еспресо та натурального грушевого лимонаду.",
+                    badge: "Хіт"
+                },
+                {
+                    title: "Еспресо Тонік (Груша / Вишня)",
+                    price: "90 ₴",
+                    desc: "Бадьорий еспресо з якісним тоніком та фруктово-ягідним акцентом.",
+                    badge: ""
+                },
+                {
+                    title: "Айс Матча Лате Сакура",
+                    price: "155 ₴",
+                    desc: "Японський зелений чай матча з ніжними нотками сакури та льодом.",
+                    badge: ""
+                },
+                {
+                    title: "Drink MOOD",
+                    price: "130 ₴",
+                    desc: "Фірмовий авторський напій від бариста кафе MOOD.",
+                    badge: "Signature"
+                },
+                {
+                    title: "Фрапе / Айс Какао",
+                    price: "95 / 75 ₴",
+                    desc: "Охолоджена кава зі збитими вершками або прохолодне шоколадне какао.",
+                    badge: ""
+                },
+                {
+                    title: "Молочний коктейль",
+                    price: "85 / 110 ₴",
+                    desc: "Густий ніжний молочний коктейль (звичайний або великий).",
+                    badge: ""
+                },
+                {
+                    title: "Свіжовижатий сік з морозивом",
+                    price: "85 ₴",
+                    desc: "Натуральний фреш з ніжним вершковим морозивом.",
+                    badge: ""
+                }
+            ]
+        };
+
+        // Render Menu Items Function
+        function renderMenu(categoryKey) {
+            const container = document.getElementById('menu-container');
+            const items = menuData[categoryKey] || [];
+            
+            container.innerHTML = items.map(item => `
+                <div class="bg-white rounded-2xl p-6 border border-mood-accent/15 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start gap-4 mb-2">
+                            <h3 class="font-serif-title text-lg font-bold text-mood-primary">${item.title}</h3>
+                            <span class="font-serif-title font-bold text-base text-mood-primary bg-mood-lightBg px-3 py-1 rounded-full flex-shrink-0">${item.price}</span>
+                        </div>
+                        <p class="text-xs text-mood-secondary leading-relaxed">${item.desc}</p>
+                    </div>
+                    ${item.badge ? `
+                        <div class="mt-4">
+                            <span class="inline-block bg-mood-softBeige text-mood-primary text-[10px] uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-md">
+                                ${item.badge}
+                            </span>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Switch Tab Active State and Content
+        function switchCategory(categoryKey) {
+            const tabs = document.querySelectorAll('.menu-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-mood-primary', 'text-white', 'shadow-md');
+                tab.classList.add('bg-white', 'text-mood-secondary', 'hover:bg-mood-lightBg');
+            });
+
+            // Activate current tab button
+            event.currentTarget.classList.remove('bg-white', 'text-mood-secondary', 'hover:bg-mood-lightBg');
+            event.currentTarget.classList.add('bg-mood-primary', 'text-white', 'shadow-md');
+
+            renderMenu(categoryKey);
+        }
+
+        // Mobile Menu Drawer Handler
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Booking Modal Handlers
+        function openModal() {
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            openModal();
+            e.target.reset();
+        }
+
+        // Initial Load
+        window.onload = function() {
+            renderMenu('tasts');
+        }
+    </script>
+</body>
+</html>
